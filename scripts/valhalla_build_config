@@ -160,6 +160,7 @@ config = {
         "max_concurrent_reader_users": 1,
         "reclassify_links": True,
         "default_speeds_config": Optional(str),
+        "tracks_keep_lua_speed": False,
         "data_processing": {
             "infer_internal_intersections": True,
             "infer_turn_channels": True,
@@ -497,6 +498,7 @@ help_text = {
         "max_concurrent_reader_users": "number of threads in the threadpool which can be used to fetch tiles over the network via curl",
         "reclassify_links": "bool indicating whether or not to reclassify links - reclassifies ramps based on the lowest class connecting road",
         "default_speeds_config": "a path indicating the json config file which graph enhancer will use to set the speeds of edges in the graph based on their geographic location (state/country), density (urban/rural), road class, road use (form of way)",
+        "tracks_keep_lua_speed": "bool indicating whether highway=track edges keep the speed lua assigned (e.g. by tracktype) instead of having it overwritten by default_speeds_config, the urban/rural density override or the unpaved-surface halving - default to False",
         "data_processing": {
             "infer_internal_intersections": "bool indicating whether or not to infer internal intersections during the graph enhancer phase or use the internal_intersection key from the pbf",
             "infer_turn_channels": "bool indicating whether or not to infer turn channels during the graph enhancer phase or use the turn_channel key from the pbf",
