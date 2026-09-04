@@ -113,6 +113,9 @@ protected:
   // 2 letter country and 2 letter state as key with urban and rural speed tables as value
   std::unordered_map<std::string, std::array<SpeedTable, 3>> tables;
 
+  // when set, highway=track keeps the tracktype based speed lua assigned
+  bool tracks_keep_lua_speed_ = false;
+
   /**
    * This function determines the speed of an edge based on the json configuration provided to the
    * classes constructor. If the edge is one of the types that cannot be assigned via config the
@@ -191,7 +194,12 @@ protected:
   }
 
 public:
-  SpeedAssigner(const boost::optional<std::string>& config_file) {
+  SpeedAssigner(const boost::optional<std::string>& config_file,
+                bool tracks_keep_lua_speed = false)
+      : tracks_keep_lua_speed_(tracks_keep_lua_speed) {
+    if (tracks_keep_lua_speed_) {
+      LOG_INFO("Tracks keep the speed assigned by lua");
+    }
     if (!config_file) {
       LOG_INFO("Disabled default speeds assignment from config");
       return;
@@ -253,6 +261,12 @@ public:
                    bool infer_turn_channels,
                    const std::string& country_code,
                    const std::string& state_code) const {
+
+    // Tracks keep the tracktype based speed lua assigned. The config table, the density
+    // override and the surface rule below would each flatten it.
+    if (tracks_keep_lua_speed_ && directededge.use() == valhalla::baldr::Use::kTrack) {
+      return true;
+    }
 
     // See if we can get a valid speed loaded from configuration
     auto configured_speed = FromConfig(directededge, density, country_code, state_code);
