@@ -1,7 +1,6 @@
-#include "gurka.h"
-
 #include "baldr/directededge.h"
 #include "baldr/graphreader.h"
+#include "gurka.h"
 
 #include <gtest/gtest.h>
 
@@ -55,8 +54,8 @@ uint32_t speed_of(gurka::map& map, const std::string& way, const std::string& en
 
 TEST(TracksKeepLuaSpeed, FlagOffTracksLoseTheirGradeDifferenceToConfig) {
   auto config_path = write_bumped_speeds_config();
-  auto map = gurka::buildtiles(gurka::detail::map_to_coordinates(kAsciiMap, 100), make_ways(),
-                               {}, {}, "test/data/tracks_keep_lua_speed_off",
+  auto map = gurka::buildtiles(gurka::detail::map_to_coordinates(kAsciiMap, 100), make_ways(), {}, {},
+                               "test/data/tracks_keep_lua_speed_off",
                                {{"mjolnir.tracks_keep_lua_speed", "false"},
                                 {"mjolnir.default_speeds_config", config_path}});
 
@@ -69,8 +68,8 @@ TEST(TracksKeepLuaSpeed, FlagOffTracksLoseTheirGradeDifferenceToConfig) {
 }
 
 TEST(TracksKeepLuaSpeed, FlagOnPreservesPerGradeSpeedsAndIgnoresConfig) {
-  auto map = gurka::buildtiles(gurka::detail::map_to_coordinates(kAsciiMap, 100), make_ways(),
-                               {}, {}, "test/data/tracks_keep_lua_speed_on",
+  auto map = gurka::buildtiles(gurka::detail::map_to_coordinates(kAsciiMap, 100), make_ways(), {}, {},
+                               "test/data/tracks_keep_lua_speed_on",
                                {{"mjolnir.tracks_keep_lua_speed", "true"}});
 
   auto grade1_speed = speed_of(map, "AB", "B");

@@ -81,8 +81,8 @@ jobs:
           mkdir -p /tmp/smoke/tiles
           curl -sL -o /tmp/smoke/liechtenstein.osm.pbf \
             https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf
-          docker run --rm -v /tmp/smoke:/data ghcr.io/zstadler/valhalla-scripted:latest \
-            /bin/bash -c "
+          docker run --rm  --entrypoint /bin/bash -v /tmp/smoke:/data ghcr.io/zstadler/valhalla-scripted:latest \
+            -c "
               set -e
               valhalla_build_config --mjolnir-tile-dir /data/tiles \
                 --mjolnir-timezone /data/tiles/timezones.sqlite > /data/valhalla.json

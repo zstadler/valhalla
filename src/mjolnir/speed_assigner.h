@@ -194,8 +194,7 @@ protected:
   }
 
 public:
-  SpeedAssigner(const boost::optional<std::string>& config_file,
-                bool tracks_keep_lua_speed = false)
+  SpeedAssigner(const boost::optional<std::string>& config_file, bool tracks_keep_lua_speed = false)
       : tracks_keep_lua_speed_(tracks_keep_lua_speed) {
     if (tracks_keep_lua_speed_) {
       LOG_INFO("Tracks keep the speed assigned by lua");

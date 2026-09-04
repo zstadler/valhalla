@@ -1,11 +1,9 @@
 #include "mjolnir/speed_assigner.h"
-
 #include "baldr/directededge.h"
 #include "baldr/graphconstants.h"
 
-#include <gtest/gtest.h>
-
 #include <boost/optional.hpp>
+#include <gtest/gtest.h>
 
 #include <filesystem>
 #include <fstream>
