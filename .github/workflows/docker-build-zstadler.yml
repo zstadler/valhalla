@@ -93,8 +93,12 @@ jobs:
                 | grep -q '\"summary\"'
             "
 
+  upstream_checks:
+    uses: ./.github/workflows/linux.yml
+    secrets: inherit
+
   publish:
-    needs: [format_lint, unit_tests, build_images, smoke_test]
+    needs: [format_lint, unit_tests, build_images, smoke_test, upstream_checks]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4

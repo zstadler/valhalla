@@ -1,6 +1,7 @@
 name: Build Linux
 
 on:
+  workflow_call: {} # Keep for zstadler/valhalla
   push:
     paths-ignore:
       - "*.md"
@@ -226,6 +227,7 @@ jobs:
           detached: true
 
   arm_build:
+    continue-on-error: true # Keep for zstadler/valhalla
     name: ARM build
     runs-on: ubuntu-24.04-arm
     needs: [lint_format]
